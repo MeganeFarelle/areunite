@@ -1,0 +1,176 @@
+<html>
+<head>
+{{>header}}
+<title>A-Reunite</title>
+</head>
+<body>
+
+<!-- ***** Preloader Start ***** -->
+    {{! <div id="js-preloader" class="js-preloader">
+      <div class="preloader-inner">
+        <span class="dot"></span>
+        <div class="dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div> }}
+    <!-- ***** Preloader End ***** -->
+    
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    {{>nav}}
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** About Us Page ***** -->
+    <div class="page-heading-shows-events">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Events</h2>
+                    <span>Check out upcoming and past events.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="shows-events-tabs">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" id="tabs">
+                        <div class="col-lg-12">
+                            <div class="heading-tabs">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <ul>
+                                          <li><a href='#tabs-1'>Upcoming</a></li>
+                                          {{! <li><a href='#tabs-2'>Past</a></a></li> }}
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        {{#user}}
+                                          {{! <div class="main-dark-button">
+                                              <a href="/events/new">New Event</a>
+                                          </div>  }}
+                                          {{/user}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <section class='tabs-content'>
+                                <article id='tabs-1'>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="heading"><h2>Upcoming</h2></div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="sidebar">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="heading-sidebar">
+                                                            <h4>Sort The Upcoming Events By:</h4>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-lg-12">
+                                                        <div class="category">
+                                                            <h6>Category</h6>
+                                                            <ul>
+                                                                <li><a href="#">Networking</a></li>
+                                                                <li><a href="#">Professional development</a></li>
+                                                                <li><a href="#">Campus events</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div class="row">
+                                                <!-- item -->
+                                                {{#events}}
+                                                <div class="col-lg-12">
+                                                    <div class="event-item">
+                                                        <div class="row">
+                                                            <div class="col-lg-4">
+                                                                <div class="left-content">
+                                                                    <h4>{{title}}</h4>
+                                                                    <p>{{description}}</p>
+                                                                    <div class="main-dark-button"><a href="javascript:void(0);" onclick="viewEvent('{{_id}}')">View Event</a></div>
+                                                                   
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <div class="thumb">
+                                                                    <img src="{{image}}" alt="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <div class="right-content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <i class="fa fa-clock-o"></i>
+                                                                            <h6>{{date}}<br>{{time}}</h6>
+                                                                        </li>
+                                                                        <li>
+                                                                            <i class="fa fa-map-marker"></i>
+                                                                            <span>{{location}}</span>
+                                                                        </li>
+                                                                        <li>
+                                                                            <i class="fa fa-map-marker"></i>
+                                                                            <span>{{category}}</span>
+                                                                        </li>
+                                                                        <li>
+                                                                            <i class="fa fa-users"></i>
+                                                                            <span>{{guests}} Total Guests Attending</span>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{/events}}
+                                                {{^events}}
+                                                <h3 style="text-align: center;">No Upcoming Events</h3>
+                                                {{/events}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>                            
+                                   
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+
+        function viewEvent(id) {
+            window.location.href = "/events/" + id;
+        }
+    </script>
+
+    {{>footer}}
+    
+    {{>scripts}}
+
+
+</body>
+</html>

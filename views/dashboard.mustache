@@ -1,0 +1,182 @@
+<html>
+<head>
+{{>header}}
+<title>A-Reunite</title>
+</head>
+<body>
+    
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    {{>nav}}
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** About Us Page ***** -->
+    <div class="page-heading-shows-events">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Dashboard</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="container m-4">
+    <div class="main-dark-button">
+                <a href="/events/new">New Event</a>
+    </div>
+</div>
+
+    {{#user}}
+    <div class="amazing-venues">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="left-content">
+                        <h4>Personal Information</h4>
+                        <p>First Name: {{user.firstname}}</p>
+                        <p>Last Name: {{user.lastname}}</p>
+                        <p>Email: {{user.email}}</p>
+                        <p>Graduation Year: {{user.graduation_year}}</p>
+                        <br>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- events -->
+    <div class="col-lg-9 p-5">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="section-heading">
+                                                    {{#isManager}}
+                                                        <h2>Alumni Events</h2>
+                                                    {{/isManager}}
+                                                    {{^isManager}}
+                                                        <h2>My Events</h2>
+                                                    {{/isManager}}
+                                                    </div>
+                                                </div>
+    {{#events}}
+                                                <div class="col-lg-12">
+                                                    <div class="event-item">
+                                                        <div class="row">
+                                                            <div class="col-lg-4">
+                                                                <div class="left-content">
+                                                                    <h4>{{title}}</h4>
+                                                                    <p>{{description}}</p>
+                                                                    <div class="main-dark-button"><a href="javascript:void(0);" onclick="viewEvent('{{_id}}')">View Event</a></div>
+                                                                    <a class="delete-button" href="javascript:void(0);" onclick="deleteEvent('{{_id}}')"><i class="fa fa-trash-o"></i></a>
+                                                                    <a class="edit-button" href="/events/{{_id}}/edit"><i class="fa fa-pencil-square-o"></i></a>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <div class="thumb">
+                                                                    <img src="{{image}}" alt="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <div class="right-content">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <i class="fa fa-clock-o"></i>
+                                                                            <h6>{{date}}<br>{{time}}</h6>
+                                                                        </li>
+                                                                        <li>
+                                                                            <i class="fa fa-map-marker"></i>
+                                                                            <span>{{location}}</span>
+                                                                        </li>
+                                                                        <li>
+                                                                            <i class="fa fa-map-marker"></i>
+                                                                            <span>{{category}}</span>
+                                                                        </li>
+                                                                        <li>
+                                                                            <i class="fa fa-users"></i>
+                                                                            <span>{{guests}} Total Guests Attending</span>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{/events}}
+                                                {{^events}}
+                                                <h3 class="display-5">No Events</h3>
+                                                {{/events}}
+                                            </div>
+                                        </div>
+    {{/user}}
+
+    {{#isManager}}
+    <div class="amazing-venues">
+        <div class="container">
+            <div class="row">
+            <div class="col-lg-12">
+                <h4 class="display-5">Manage Users</h4>
+            </div>
+            {{#users}}
+                <div class="col-lg-12">
+                    <div class="card mb-3">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title">{{firstname}} {{lastname}}</h5>
+                                <p class="card-text">{{email}} - {{graduation_year}}</p>
+                            </div>
+                            <script>
+                                function handleDelete(id) {
+                                    $.ajax({
+                                        url: '/auth/delete/' + id,
+                                        type: 'DELETE',
+                                        success: function(result) {
+                                            window.location.reload(true);
+                                        }
+                                    })
+                                }
+                            </script>
+                           
+                                <button type="button" class="btn btn-danger" onclick="handleDelete('{{_id}}')">Delete</button>
+                        
+                        </div>
+                    </div>
+                </div>
+            {{/users}}
+            </div>
+        </div>
+    </div>
+
+    {{/isManager}}
+
+
+    <script>
+    function deleteEvent(id) {
+            if (confirm("Are you sure you want to delete this event?")) {
+                $.ajax({
+                    url: '/events/' + id,
+                    type: 'DELETE',
+                    success: function(result) {
+                        window.location.reload(true);
+                    }
+                });
+            }
+        }
+
+        </script>
+
+    {{>footer}}
+    
+    {{>scripts}}
+
+  </body>
+
+</html>
