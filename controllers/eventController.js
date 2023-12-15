@@ -1,12 +1,10 @@
 const router = require("../routes/eventRoutes");
-const modelsDAO = require("../models/eventsModel");
-
-const db = new modelsDAO("events.db");
+const { dbEvents } = require("../ds");
 // db.init();
 
 
 exports.getEvents = async function (req, res) {
-  const events = await db.getAllEvents();
+  const events = await dbEvents.getAllEvents();
 
   const eventsWithOwner = [];
   events.map((event) => {
@@ -26,7 +24,7 @@ exports.getEvents = async function (req, res) {
 
 exports.getEvent = async function (req, res) {
   const id = req.params.id;
-  const event = await db.getEvent(id);
+  const event = await dbEvents.getEvent(id);
   res.render("event", { title: "Event", event: event });
 };
 
@@ -49,19 +47,19 @@ exports.postNewEvent = async function (req, res) {
     createdBy: req.session.user?.username,
   };
 
-  await db.addEvent(newEvent);
+  await dbEvents.addEvent(newEvent);
   res.redirect("/events");
 };
 
 exports.getEditEvent = async function (req, res) {
   const id = req.params.id;
-  const event = await db.getEvent(id);
+  const event = await dbEvents.getEvent(id);
   res.render("editEvent", { title: "Edit Event", event: event });
 };
 
 exports.putEditEvent = async function (req, res) {
   const id = req.params.id;
-  const event = await db.getEvent(id);
+  const event = await dbEvents.getEvent(id);
   event.title = req.body.title;
   event.description = req.body.description;
   event.date = req.body.date;
@@ -77,7 +75,7 @@ exports.putEditEvent = async function (req, res) {
 
 exports.deleteEvent = async function (req, res) {
   const id = req.params.id;
-  await db.deleteEvent(id);
+  await dbEvents.deleteEvent(id);
   res.redirect("/events");
 };
 

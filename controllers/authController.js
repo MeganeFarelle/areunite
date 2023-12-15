@@ -1,11 +1,9 @@
-const usersDAO = require("../models/usersModel");
-
-const db = new usersDAO("users.db");
+const { dbUsers } = require("../ds");
 // db.init();
 
 exports.authenticate = async (req, res) => {
   const { email, password } = req.body;
-  const user = await db.getUser(email);
+  const user = await dbUsers.getUser(email);
   console.log(user);
 
   if (!user) {
@@ -48,13 +46,13 @@ exports.postRegister = async function (req, res) {
     role: "user",
   };
 
-  await db.addUser(newUser);
+  await dbUsers.addUser(newUser);
   res.redirect("/auth/login");
 };
 
 exports.deleteUser = async function (req, res) {
   const id = req.params.id;
-  await db.deleteUser(id);
+  await dbUsers.deleteUser(id);
   res.redirect("/dashboard");
 };
 

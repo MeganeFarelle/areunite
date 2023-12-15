@@ -9,9 +9,7 @@ const eventRoutes = require("./routes/eventRoutes");
 const authRoutes = require("./routes/authRoutes");
 const miscRoutes = require("./routes/miscRoutes");
 
-const usersDAO = require("./models/usersModel");
-
-const db = new usersDAO("users.db");
+const { dbUsers } = require("./ds");
 
 const app = express();
 
